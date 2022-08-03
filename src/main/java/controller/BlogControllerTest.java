@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BlogControllerTest {
-    @GetMapping("/test/hello")
+    @GetMapping("/hello")
     public String hello(){
         return "<h1>hello spring boot</h1>";
     }
