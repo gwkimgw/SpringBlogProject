@@ -1,4 +1,4 @@
-package controller;
+package com.cos.springblogproject.controller;
 
 import org.springframework.web.bind.annotation.*;
 

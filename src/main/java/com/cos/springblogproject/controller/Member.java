@@ -1,4 +1,4 @@
-package controller;
+package com.cos.springblogproject.controller;
 
 public class Member {
     private int id;
