@@ -4,6 +4,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HttpControllerTest {
+    private static final String TAG = "HttpControllerTest:";
+
+    @GetMapping("/http/lombok")
+    public String lombokTest() {
+        Member member1 = Member.builder().username("user").password("2134").email("eamlk").build();
+        System.out.println(TAG + "getter: " + member1.getId());
+        member1.setId(500);
+        System.out.println(TAG + "setter: " + member1.getId());
+        return "lombok test";
+    }
+
     @GetMapping("/http/get")
     //@RequestParam int id, @RequestParam String username
     public String getTest(Member member){
