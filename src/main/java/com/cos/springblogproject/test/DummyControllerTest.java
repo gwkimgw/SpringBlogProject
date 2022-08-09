@@ -1,5 +1,6 @@
 package com.cos.springblogproject.test;
 
+import com.cos.springblogproject.model.RoleType;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class DummyControllerTest {
         System.out.println(user.getUsername()
                 + " " + user.getPassword()
                 + " " + user.getEmail());
+
+        user.setRole(RoleType.USER);
 
         userRepository.save(user);
         return "new member joined";
