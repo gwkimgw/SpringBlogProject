@@ -1,6 +1,5 @@
-package com.cos.springblogproject.controller;
+package com.cos.springblogproject.test;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
