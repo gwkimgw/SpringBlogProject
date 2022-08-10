@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,9 +59,17 @@ public class DummyControllerTest {
         return user;
     }
 
+    @Transactional
     @PutMapping("/dummy/user/{id}")
     public User update(@PathVariable int id
             , @RequestBody User requestUser) {
+        User user = userRepository.findById(id).orElseThrow(() ->{
+            return new IllegalArgumentException("we failed");
+        });
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail());
+
+//        userRepository.save(user);
         return null;
     }
 }
