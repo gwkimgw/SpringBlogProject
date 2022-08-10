@@ -8,10 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -21,6 +18,19 @@ public class DummyControllerTest {
     //Dependency Injection
     @Autowired
     private UserRepository userRepository;
+
+
+    @PostMapping("/dummy/join")
+    public String join(User user){
+        System.out.println(user.getUsername()
+                + " " + user.getPassword()
+                + " " + user.getEmail());
+
+        user.setRole(RoleType.USER);
+
+        userRepository.save(user);
+        return "new member joined";
+    }
 
     @GetMapping("/dummy/user")
     public List<User> list(){
@@ -48,15 +58,9 @@ public class DummyControllerTest {
         return user;
     }
 
-    @PostMapping("/dummy/join")
-    public String join(User user){
-        System.out.println(user.getUsername()
-                + " " + user.getPassword()
-                + " " + user.getEmail());
-
-        user.setRole(RoleType.USER);
-
-        userRepository.save(user);
-        return "new member joined";
+    @PutMapping("/dummy/user/{id}")
+    public User update(@PathVariable int id
+            , @RequestBody User requestUser) {
+        return null;
     }
 }
