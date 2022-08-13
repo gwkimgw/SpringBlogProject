@@ -15,8 +15,8 @@
             <input type="password" class="form-control" placeholder="Enter password" id="pwd">
         </div>
     </form>
-    <button id = "btn-save" class="btn btn-primary">Submit</button>
+    <button id="btn-save" class="btn btn-primary">Submit</button>
 </div>
 
-<script src = "/js/user/user.js"></script>
+<script src = "/blog/js/user/user.js"></script>
 <%@ include file="../layout/footer.jsp"%>
