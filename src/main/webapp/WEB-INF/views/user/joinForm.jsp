@@ -1,7 +1,7 @@
 <%@include file="../layout/header.jsp"%>
 
 <div class="container">
-    <form action="/action_page.php">
+    <form>
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="username" class="form-control" placeholder="Enter username" id="username">
@@ -14,8 +14,9 @@
             <label for="pwd">Password:</label>
             <input type="password" class="form-control" placeholder="Enter password" id="pwd">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <button id = "btn-save" class="btn btn-primary">Submit</button>
 </div>
 
+<script src = "/js/user/user.js"></script>
 <%@ include file="../layout/footer.jsp"%>
