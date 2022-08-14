@@ -22,6 +22,7 @@ let index  = {
             dataType: "json"
         }).done(function(resp){
             alert("member joined");
+            console.log(resp)
             location.href = "/blog";
         }).fail(function(error){
             alert(JSON.stringify(error));
