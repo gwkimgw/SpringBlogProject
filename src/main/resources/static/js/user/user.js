@@ -23,7 +23,7 @@ let index  = {
         }).done(function(resp){
             alert("member joined");
             location.href = "/blog";
-        }).fail(function(){
+        }).fail(function(error){
             alert(JSON.stringify(error));
         });
     }
