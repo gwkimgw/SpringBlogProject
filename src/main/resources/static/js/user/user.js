@@ -14,7 +14,18 @@ let index  = {
         }
 
         // console.log(data);
-        $.ajax().done().fail();
+        $.ajax({
+            type: "POST",
+            url: "/api/user",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(resp){
+            alert("member joined");
+            location.href = "/blog";
+        }).fail(function(){
+            alert(JSON.stringify(error));
+        });
     }
 }
 
