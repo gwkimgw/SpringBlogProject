@@ -21,6 +21,6 @@ public class UserApiController {
         System.out.println("userapicontroller");
         user.setRole(RoleType.USER);
         int result = userService.join(user);
-        return new ResponseDto<Integer>(HttpStatus.OK, result);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
     }
 }
