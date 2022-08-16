@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class UserApiController {
 
@@ -22,5 +24,15 @@ public class UserApiController {
         user.setRole(RoleType.USER);
         int result = userService.join(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
+    }
+
+    @PostMapping("/api/user/login")
+    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
+        System.out.println("login api");
+        User principal = userService.login(user);
+        if(principal != null) {
+            session.setAttribute("principal", principal);
+        }
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

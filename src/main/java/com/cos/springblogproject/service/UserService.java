@@ -1,10 +1,10 @@
 package com.cos.springblogproject.service;
 
-import javax.transaction.Transactional;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -20,5 +20,10 @@ public class UserService {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Transactional(readOnly = true)
+    public User login(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 }
