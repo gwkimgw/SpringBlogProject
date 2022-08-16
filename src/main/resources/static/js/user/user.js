@@ -5,7 +5,7 @@ let index  = {
         });
     },
 
-    save: function(){
+    save: function() {
         // alert('user save called');
         let data = {
             username: $("#username").val(),
@@ -20,8 +20,31 @@ let index  = {
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
-        }).done(function(resp){
+        }).done(function (resp) {
             alert("member joined");
+            console.log(resp)
+            location.href = "/blog";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    login: function(){
+        // alert('user save called');
+        let data = {
+            username: $("#username").val(),
+            password: $("#pwd").val()
+        }
+
+        // console.log(data);
+        $.ajax({
+            type: "POST",
+            url: "/blog/api/login",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(resp){
+            alert("login success");
             console.log(resp)
             location.href = "/blog";
         }).fail(function(error){
