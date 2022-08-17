@@ -26,13 +26,13 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
     }
 
-    @PostMapping("/api/user/login")
-    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
-        System.out.println("login api");
-        User principal = userService.login(user);
-        if(principal != null) {
-            session.setAttribute("principal", principal);
-        }
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-    }
+//    @PostMapping("/api/user/login")
+//    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
+//        System.out.println("login api");
+//        User principal = userService.login(user);
+//        if(principal != null) {
+//            session.setAttribute("principal", principal);
+//        }
+//        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//    }
 }
