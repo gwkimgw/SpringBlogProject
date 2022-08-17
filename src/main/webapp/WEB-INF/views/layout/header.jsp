@@ -21,10 +21,10 @@
             <c:when test="${empty sessionScope.principal}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/loginForm">Login</a>
+                        <a class="nav-link" href="/loginForm">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/joinForm">Sign UP</a>
+                        <a class="nav-link" href="/joinForm">Sign UP</a>
                     </li>
                 </ul>
             </c:when>
