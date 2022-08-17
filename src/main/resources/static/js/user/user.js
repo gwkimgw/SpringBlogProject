@@ -19,14 +19,14 @@ let index  = {
         // console.log(data);
         $.ajax({
             type: "POST",
-            url: "/blog/api/user",
+            url: "/api/user",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
             alert("member joined");
             console.log(resp)
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -42,14 +42,14 @@ let index  = {
         // console.log(data);
         $.ajax({
             type: "POST",
-            url: "/blog/api/login",
+            url: "/api/login",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function(resp){
             alert("login success");
             console.log(resp)
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
