@@ -3,9 +3,9 @@ let index  = {
         $("#btn-save").on("click", ()=>{
             this.save();
         });
-        $("#btn-login").on("click", ()=>{
-            this.login();
-        });
+        // $("#btn-login").on("click", ()=>{
+        //     this.login();
+        // });
     },
 
     save: function() {
@@ -19,7 +19,7 @@ let index  = {
         // console.log(data);
         $.ajax({
             type: "POST",
-            url: "/api/user",
+            url: "/auth/joinProc",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -32,28 +32,28 @@ let index  = {
         });
     },
 
-    login: function(){
-        // alert('user save called');
-        let data = {
-            username: $("#username").val(),
-            password: $("#pwd").val()
-        }
-
-        // console.log(data);
-        $.ajax({
-            type: "POST",
-            url: "/api/login",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function(resp){
-            alert("login success");
-            console.log(resp)
-            location.href = "/";
-        }).fail(function(error){
-            alert(JSON.stringify(error));
-        });
-    }
+    // login: function(){
+    //     // alert('user save called');
+    //     let data = {
+    //         username: $("#username").val(),
+    //         password: $("#pwd").val()
+    //     }
+    //
+    //     // console.log(data);
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/api/login",
+    //         data: JSON.stringify(data),
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json"
+    //     }).done(function(resp){
+    //         alert("login success");
+    //         console.log(resp)
+    //         location.href = "/";
+    //     }).fail(function(error){
+    //         alert(JSON.stringify(error));
+    //     });
+    // }
 }
 
 index.init();
