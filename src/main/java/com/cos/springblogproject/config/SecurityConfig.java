@@ -1,5 +1,7 @@
 package com.cos.springblogproject.config;
 
+import com.cos.springblogproject.config.auth.PrincipalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,9 +15,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private PrincipalService principalService;
+
     @Bean
     public BCryptPasswordEncoder encodePWD(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(principalService).passwordEncoder(encodePWD());
     }
 
     @Override
@@ -29,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated()
                 .and()
                     .formLogin()
-                    .loginPage("/auth/loginForm");
+                    .loginPage("/auth/loginForm")
+                    .loginProcessingUrl("/auth/loginProc")
+                    .defaultSuccessUrl("/");
     }
 }
