@@ -35,10 +35,10 @@
             <c:otherwise>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/board/writeForm">Write Article</a>
+                        <a class="nav-link" href="/board/saveForm">Write Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/userForm">User Info</a>
+                        <a class="nav-link" href="/user/updateForm">User Info</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
