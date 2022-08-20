@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -35,10 +37,10 @@
             <c:otherwise>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/board/writeForm">Write Article</a>
+                        <a class="nav-link" href="/board/saveForm">Write Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/userForm">User Info</a>
+                        <a class="nav-link" href="/user/updateForm">User Info</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>

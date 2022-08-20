@@ -28,7 +28,6 @@ public class Board {
     @Lob
     private String Content;
 
-    @ColumnDefault("0")
     private int count;
 
     @ManyToOne(fetch = FetchType.EAGER)
