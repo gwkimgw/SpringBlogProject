@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class BoardService {
     @Autowired
@@ -22,4 +24,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    public List<Board> getList() {
+        return boardRepository.findAll();
+    }
 }
