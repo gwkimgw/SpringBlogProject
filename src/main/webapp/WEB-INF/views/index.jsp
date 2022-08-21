@@ -5,7 +5,7 @@
         <div class="card m-2">
             <div class="card-body">
                 <h4 class="card-title">${board.title}</h4>
-                <p class="card-text">Contents</p>
+                <a href="/board/${board.id}" class="btn btn-primary">content</a>
             </div>
         </div>
      </c:forEach>

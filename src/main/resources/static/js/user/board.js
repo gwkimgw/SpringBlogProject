@@ -3,6 +3,10 @@ let index  = {
         $("#btn-save").on("click", ()=>{
             this.save();
         });
+
+        $("#btn-delete").on("click", ()=>{
+            this.deleteById();
+        });
     },
 
     save: function() {
@@ -19,6 +23,21 @@ let index  = {
             dataType: "json"
         }).done(function (resp) {
             alert("article saved");
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    deleteById: function() {
+        var id = $("#id").text();
+
+        $.ajax({
+            type: "DELETE",
+            url: "/api/board/"+id,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("article deleted");
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
