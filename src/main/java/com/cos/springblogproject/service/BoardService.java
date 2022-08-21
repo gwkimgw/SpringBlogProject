@@ -29,4 +29,11 @@ public class BoardService {
     public Page<Board> getList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
+
+    public Board getContent(int id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("failed: no such id");
+                });
+    }
 }
