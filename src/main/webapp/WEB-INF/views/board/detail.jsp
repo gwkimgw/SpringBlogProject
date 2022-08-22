@@ -3,8 +3,8 @@
  <div class="container">
      <button class="btn btn-secondary" onclick="history.back()">return</button>
      <c:if test="${board.user.id == principal.user.id}">
-         <a href="/board/${board.id}/updateForm" class="btn btn-warning">edit</a>
-         <button id = "btn-delete" class="btn btn-danger">delete</button>
+         <a href="/board/${board.id}/updateForm" class="btn btn-warning">Edit</a>
+         <button id = "btn-delete" class="btn btn-danger">Delete</button>
      </c:if>
      <br/><br/>
      <div>

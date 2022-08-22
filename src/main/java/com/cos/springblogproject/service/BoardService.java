@@ -16,7 +16,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void write(Board board, User user) {
         board.setCount(0);
         board.setUser(user);
@@ -38,5 +38,15 @@ public class BoardService {
     @Transactional
     public void delete(int id) {
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void edit(int id, Board requestBoard) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("failed: no such id");
+                });
+        board.setTitle(requestBoard.getTitle());
+        board.setContent(requestBoard.getContent());
     }
 }
