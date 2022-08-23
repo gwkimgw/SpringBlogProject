@@ -25,6 +25,17 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void update(User user) {
+        User editUser = userRepository.findById(user.getId()).orElseThrow(() -> {
+            return new IllegalArgumentException("failed");
+        });
+        String rawPwd = user.getPassword();
+        String encodePwd = encoder.encode(rawPwd);
+        editUser.setPassword(encodePwd);
+        editUser.setEmail(user.getEmail());
+    }
+
 //    @Transactional(readOnly = true)
 //    public User login(User user) {
 //        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());

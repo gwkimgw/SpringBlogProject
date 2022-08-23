@@ -2,6 +2,7 @@
 
 <div class="container">
     <form>
+        <input type="hidden" id="id" value="${principal.user.id}">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="username" value="${principal.user.username}" class="form-control" placeholder="Enter username" id="username" readonly>
