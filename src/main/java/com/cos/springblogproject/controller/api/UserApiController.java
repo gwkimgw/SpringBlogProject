@@ -7,6 +7,7 @@ import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,9 @@ public class UserApiController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         System.out.println("userapicontroller");
@@ -44,6 +48,9 @@ public class UserApiController {
 //        SecurityContext securityContext = SecurityContextHolder.getContext();
 //        securityContext.setAuthentication(authentication);
 //        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
