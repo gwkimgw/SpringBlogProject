@@ -4,6 +4,10 @@ import com.cos.springblogproject.model.RoleType;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,17 @@ public class UserService {
         user.setPassword(encPwd);
         user.setRole(RoleType.USER);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public void update(User user) {
+        User editUser = userRepository.findById(user.getId()).orElseThrow(() -> {
+            return new IllegalArgumentException("failed");
+        });
+        String rawPwd = user.getPassword();
+        String encodePwd = encoder.encode(rawPwd);
+        editUser.setPassword(encodePwd);
+        editUser.setEmail(user.getEmail());
     }
 
 //    @Transactional(readOnly = true)

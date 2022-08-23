@@ -3,6 +3,9 @@ let index  = {
         $("#btn-save").on("click", ()=>{
             this.save();
         });
+        $("#btn-edit").on("click", ()=>{
+            this.update();
+        });
         // $("#btn-login").on("click", ()=>{
         //     this.login();
         // });
@@ -25,6 +28,28 @@ let index  = {
             dataType: "json"
         }).done(function (resp) {
             alert("member joined");
+            console.log(resp)
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    update: function() {
+        let data = {
+            id: $("#id").val(),
+            password: $("#pwd").val(),
+            email: $("#email").val()
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "/user",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("member info edited");
             console.log(resp)
             location.href = "/";
         }).fail(function (error) {
