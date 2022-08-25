@@ -1,5 +1,6 @@
 package com.cos.springblogproject.controller;
 
+import com.cos.springblogproject.model.KakaoProfile;
 import com.cos.springblogproject.model.OAuthToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,6 +78,15 @@ public class UserController {
                 String.class
         );
 
-        return "response: " + responseEntity2.getBody();
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        KakaoProfile kakaoProfile = null;
+        try {
+            kakaoProfile = objectMapper2.readValue(responseEntity2.getBody(), KakaoProfile.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(kakaoProfile.getId() + "\n" + kakaoProfile.getKakao_account().getEmail());
+        return "response";
     }
 }
