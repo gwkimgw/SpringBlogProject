@@ -21,6 +21,14 @@ public class UserService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
+    public User findUser(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(() -> {
+                return new User();
+        });
+        return user;
+    }
+
+    @Transactional
     public void join(User user) {
         String rawPwd = user.getPassword();
         String encPwd = encoder.encode(rawPwd);

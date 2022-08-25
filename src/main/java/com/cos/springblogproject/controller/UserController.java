@@ -2,12 +2,20 @@ package com.cos.springblogproject.controller;
 
 import com.cos.springblogproject.model.KakaoProfile;
 import com.cos.springblogproject.model.OAuthToken;
+import com.cos.springblogproject.model.User;
+import com.cos.springblogproject.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,8 +23,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 @Controller
 public class UserController {
+    @Value("${cos.key}")
+    private String cosKey;
+
+    @Autowired
+    public AuthenticationManager authenticationManager;
+
+    @Autowired
+    public UserService userService;
+
     @GetMapping("/auth/joinForm")
     public String joinForm(){
         return "user/joinForm";
@@ -33,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/auth/kakao/callback")
-    public @ResponseBody String kakaoCallback(String code){
+    public String kakaoCallback(String code){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -86,7 +105,23 @@ public class UserController {
             e.printStackTrace();
         }
 
-        System.out.println(kakaoProfile.getId() + "\n" + kakaoProfile.getKakao_account().getEmail());
-        return "response";
+
+        System.out.println(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
+//        UUID tempPwd = UUID.randomUUID();
+        User kakaoUser = User.builder()
+                .username(kakaoProfile.getId().toString())
+                .password(cosKey)
+                .email(kakaoProfile.getKakao_account().getEmail())
+                .build();
+
+        User isUser = userService.findUser(kakaoUser.getUsername());
+        if (isUser.getUsername() == null) {
+            userService.join(kakaoUser);
+        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), cosKey));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/";
     }
 }
