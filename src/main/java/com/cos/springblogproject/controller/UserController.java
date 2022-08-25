@@ -1,5 +1,9 @@
 package com.cos.springblogproject.controller;
 
+import com.cos.springblogproject.model.KakaoProfile;
+import com.cos.springblogproject.model.OAuthToken;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -51,6 +55,38 @@ public class UserController {
                 String.class
         );
 
-        return "response: " + responseEntity;
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthToken oAuthToken = null;
+        try {
+            oAuthToken = objectMapper.readValue(responseEntity.getBody(), OAuthToken.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        RestTemplate restTemplate2 = new RestTemplate();
+        HttpHeaders httpHeaders2 = new HttpHeaders();
+        httpHeaders2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
+        httpHeaders2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        HttpEntity<MultiValueMap<String, String>>kakaoProfileRequest =
+                new HttpEntity<>(httpHeaders2);
+
+        ResponseEntity<String> responseEntity2 = restTemplate2.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoProfileRequest,
+                String.class
+        );
+
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        KakaoProfile kakaoProfile = null;
+        try {
+            kakaoProfile = objectMapper2.readValue(responseEntity2.getBody(), KakaoProfile.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(kakaoProfile.getId() + "\n" + kakaoProfile.getKakao_account().getEmail());
+        return "response";
     }
 }
