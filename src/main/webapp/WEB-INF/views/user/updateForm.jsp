@@ -9,12 +9,14 @@
         </div>
         <div class="form-group">
             <label for="email">Email address:</label>
-            <input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email">
+            <input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" readonly>
         </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" value="${principal.user.password}"class="form-control" placeholder="Enter password" id="pwd">
-        </div>
+        <c:if test="${empty principal.user.oauth}">
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" value="${principal.user.password}"class="form-control" placeholder="Enter password" id="pwd">
+            </div>
+        </c:if>
     </form>
     <button id="btn-edit" class="btn btn-primary">Edit</button>
 </div>
