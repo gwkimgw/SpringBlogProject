@@ -1,5 +1,8 @@
 package com.cos.springblogproject.controller;
 
+import com.cos.springblogproject.model.OAuthToken;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -51,6 +54,14 @@ public class UserController {
                 String.class
         );
 
-        return "response: " + responseEntity;
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthToken oAuthToken = null;
+        try {
+            oAuthToken = objectMapper.readValue(responseEntity.getBody(), OAuthToken.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return "response: " + oAuthToken.getAccess_token();
     }
 }
