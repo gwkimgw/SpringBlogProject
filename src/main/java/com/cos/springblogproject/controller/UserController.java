@@ -112,6 +112,7 @@ public class UserController {
                 .username(kakaoProfile.getId().toString())
                 .password(cosKey)
                 .email(kakaoProfile.getKakao_account().getEmail())
+                .oauth("kakao")
                 .build();
 
         User isUser = userService.findUser(kakaoUser.getUsername());

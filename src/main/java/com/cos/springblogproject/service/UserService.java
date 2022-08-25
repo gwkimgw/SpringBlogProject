@@ -42,10 +42,13 @@ public class UserService {
         User editUser = userRepository.findById(user.getId()).orElseThrow(() -> {
             return new IllegalArgumentException("failed");
         });
-        String rawPwd = user.getPassword();
-        String encodePwd = encoder.encode(rawPwd);
-        editUser.setPassword(encodePwd);
-        editUser.setEmail(user.getEmail());
+
+        if(editUser.getOauth() == null || editUser.getOauth().equals("")) {
+            String rawPwd = user.getPassword();
+            String encodePwd = encoder.encode(rawPwd);
+            editUser.setPassword(encodePwd);
+            editUser.setEmail(user.getEmail());
+        }
     }
 
 //    @Transactional(readOnly = true)
