@@ -62,6 +62,21 @@ public class UserController {
             e.printStackTrace();
         }
 
-        return "response: " + oAuthToken.getAccess_token();
+        RestTemplate restTemplate2 = new RestTemplate();
+        HttpHeaders httpHeaders2 = new HttpHeaders();
+        httpHeaders2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
+        httpHeaders2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        HttpEntity<MultiValueMap<String, String>>kakaoProfileRequest =
+                new HttpEntity<>(httpHeaders2);
+
+        ResponseEntity<String> responseEntity2 = restTemplate2.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoProfileRequest,
+                String.class
+        );
+
+        return "response: " + responseEntity2.getBody();
     }
 }
