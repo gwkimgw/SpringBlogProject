@@ -35,7 +35,7 @@ public class Board {
     private User user;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
-    private List<Reply> reply;
+    private List<Reply> replies;
 
     @CreationTimestamp
     private Timestamp createDate;
