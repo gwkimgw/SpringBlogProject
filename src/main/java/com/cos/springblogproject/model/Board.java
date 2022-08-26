@@ -1,5 +1,6 @@
 package com.cos.springblogproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class Board {
     private User user;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"board"})
     private List<Reply> replies;
 
     @CreationTimestamp
