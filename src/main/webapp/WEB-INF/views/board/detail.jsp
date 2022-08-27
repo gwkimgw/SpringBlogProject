@@ -23,6 +23,7 @@
      </div>
      <hr/>
      <div class="card">
+         <input type="hidden" id="userId" value="${principal.user.id}"/>
          <input type="hidden" id="boardId" value="${board.id}"/>
          <form>
              <div class="card-body">

@@ -1,6 +1,7 @@
 package com.cos.springblogproject.controller.api;
 
 import com.cos.springblogproject.config.auth.PrincipalDetail;
+import com.cos.springblogproject.dto.ReplySaveRequestDto;
 import com.cos.springblogproject.dto.ResponseDto;
 import com.cos.springblogproject.model.Board;
 import com.cos.springblogproject.model.Reply;
@@ -36,9 +37,8 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> saveReply(@PathVariable int boardId
-            , @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
-        boardService.writeReply(principal.getUser(), boardId, reply);
+    public ResponseDto<Integer> saveReply(@RequestBody ReplySaveRequestDto reply) {
+        boardService.writeReply(reply);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }
