@@ -1,8 +1,10 @@
 package com.cos.springblogproject.controller.api;
 
 import com.cos.springblogproject.config.auth.PrincipalDetail;
+import com.cos.springblogproject.dto.ReplySaveRequestDto;
 import com.cos.springblogproject.dto.ResponseDto;
 import com.cos.springblogproject.model.Board;
+import com.cos.springblogproject.model.Reply;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.service.BoardService;
 import com.cos.springblogproject.service.UserService;
@@ -31,6 +33,12 @@ public class BoardApiController {
     @PutMapping("/api/board/{id}")
     public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
         boardService.edit(id, board);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> saveReply(@RequestBody ReplySaveRequestDto reply) {
+        boardService.writeReply(reply);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

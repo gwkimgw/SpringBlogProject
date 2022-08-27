@@ -1,8 +1,12 @@
 package com.cos.springblogproject.service;
 
+import com.cos.springblogproject.dto.ReplySaveRequestDto;
 import com.cos.springblogproject.model.Board;
+import com.cos.springblogproject.model.Reply;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.repository.BoardRepository;
+import com.cos.springblogproject.repository.ReplyRepository;
+import com.cos.springblogproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +18,11 @@ import java.util.List;
 @Service
 public class BoardService {
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional
     public void write(Board board, User user) {
@@ -48,5 +56,25 @@ public class BoardService {
                 });
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
+    }
+
+    @Transactional
+    public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
+        User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(() -> {
+            return new IllegalArgumentException("failed: no such user");
+        });
+        Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(() -> {
+            return new IllegalArgumentException("failed: no such board");
+        });
+
+//        Reply reply = Reply.builder()
+//                .user(user)
+//                .board(board)
+//                .content(replySaveRequestDto.getContent())
+//                .build();
+        Reply reply = new Reply();
+        reply.update(user, board, replySaveRequestDto.getContent());
+
+        replyRepository.save(reply);
     }
 }
