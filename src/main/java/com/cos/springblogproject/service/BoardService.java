@@ -1,8 +1,11 @@
 package com.cos.springblogproject.service;
 
 import com.cos.springblogproject.model.Board;
+import com.cos.springblogproject.model.Reply;
 import com.cos.springblogproject.model.User;
 import com.cos.springblogproject.repository.BoardRepository;
+import com.cos.springblogproject.repository.ReplyRepository;
+import com.cos.springblogproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +18,8 @@ import java.util.List;
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional
     public void write(Board board, User user) {
@@ -48,5 +53,17 @@ public class BoardService {
                 });
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
+    }
+
+    @Transactional
+    public void writeReply(User user, int boardId, Reply requestReply) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+            return new IllegalArgumentException("failed: no such board");
+        });
+
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+
+        replyRepository.save(requestReply);
     }
 }
