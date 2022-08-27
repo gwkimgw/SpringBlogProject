@@ -23,8 +23,13 @@
      </div>
      <hr/>
      <div class="card">
-         <div class="card-body"><textarea class="form-control" rows="1"></textarea></div>
-         <div class="card-footer"><button class="btn btn-primary">Submit</button></div>
+         <input type="hidden" id="boardId" value="${board.id}"/>
+         <form>
+             <div class="card-body">
+                 <textarea id="reply-content" class="form-control" rows="1"></textarea>
+             </div>
+             <div type="button" id="btn-reply-save" class="card-footer"><button class="btn btn-primary">Submit</button></div>
+        </form>
      </div>
      <br/>
      <div class="card">
