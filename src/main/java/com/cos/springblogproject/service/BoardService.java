@@ -60,21 +60,22 @@ public class BoardService {
 
     @Transactional
     public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
-        User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(() -> {
-            return new IllegalArgumentException("failed: no such user");
-        });
-        Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(() -> {
-            return new IllegalArgumentException("failed: no such board");
-        });
+//        User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(() -> {
+//            return new IllegalArgumentException("failed: no such user");
+//        });
+//        Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(() -> {
+//            return new IllegalArgumentException("failed: no such board");
+//        });
+//        Reply reply = new Reply();
+//        reply.update(user, board, replySaveRequestDto.getContent());
 
 //        Reply reply = Reply.builder()
 //                .user(user)
 //                .board(board)
 //                .content(replySaveRequestDto.getContent())
 //                .build();
-        Reply reply = new Reply();
-        reply.update(user, board, replySaveRequestDto.getContent());
 
-        replyRepository.save(reply);
+        replyRepository.mySave(replySaveRequestDto.getUserId()
+                , replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
 }
