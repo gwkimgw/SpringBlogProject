@@ -27,9 +27,12 @@ let index  = {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
-            alert("member joined");
-            console.log(resp)
-            location.href = "/";
+            if(resp.status==500){
+                alert("member join failed");
+            } else {
+                console.log(resp)
+                location.href = "/";
+            }
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
